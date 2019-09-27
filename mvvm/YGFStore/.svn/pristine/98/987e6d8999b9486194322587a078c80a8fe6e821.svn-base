@@ -1,0 +1,144 @@
+package com.neufmer.ygfstore.ui.main.fragment.task;
+
+import android.annotation.SuppressLint;
+import android.app.Application;
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableField;
+import android.databinding.ObservableList;
+import android.support.annotation.NonNull;
+
+import com.neufmer.ygfstore.BR;
+import com.neufmer.ygfstore.Const;
+import com.neufmer.ygfstore.R;
+import com.neufmer.ygfstore.api.source.TaskModel;
+import com.neufmer.ygfstore.bean.TaskBean;
+import com.neufmer.ygfstore.bean.TasksBean;
+import com.neufmer.ygfstore.ui.search_history.keyword.SearchHistoryKeywordActivity;
+import com.neufmer.ygfstore.view.uichange.SwipeRefreshUIChangeObservable;
+import com.neufmer.ygfstore.ui.addtask.AddTaskActivity;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.wangxing.code.mvvm.base.BaseViewModel;
+import com.wangxing.code.mvvm.binding.command.BindingAction;
+import com.wangxing.code.mvvm.binding.command.BindingCommand;
+import com.wangxing.code.mvvm.binding.command.BindingConsumer;
+import com.wangxing.code.mvvm.http.ApiCallBack;
+import com.wangxing.code.mvvm.http.ResponseThrowable;
+import com.wangxing.code.mvvm.utils.ContextUtils;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import me.tatarka.bindingcollectionadapter2.ItemBinding;
+
+/**
+ * Created by WangXing on 2019/6/13.
+ */
+public class TaskFragmentViewModel extends BaseViewModel<TaskModel> {
+
+    private int page = 1;
+
+    private String currentDate;
+
+    public SwipeRefreshUIChangeObservable swipeRefreshUC = new SwipeRefreshUIChangeObservable();
+
+    public ObservableField<String> currentDateText = new ObservableField<>();
+
+    public ObservableList<TaskItemViewModel> itemList = new ObservableArrayList<>();
+    public ItemBinding<TaskItemViewModel> itemBinding = ItemBinding.of(BR.viewModel, R.layout.item_main_task_list);
+
+    @SuppressLint("SimpleDateFormat")
+    public TaskFragmentViewModel(@NonNull Application application) {
+        super(application);
+        String[] weeks = ContextUtils.getContext().getResources().getStringArray(R.array.week_string_array);
+        Calendar instance = Calendar.getInstance();
+        Date time = instance.getTime();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        currentDate = format.format(time);
+        currentDateText.set(ContextUtils.getContext().getString(R.string.task_fragment_date_format
+                , instance.get(Calendar.MONTH) + 1,
+                instance.get(Calendar.DAY_OF_MONTH),
+                weeks[instance.get(Calendar.DAY_OF_WEEK_IN_MONTH) - 1]));
+    }
+
+    /**
+     * 新建任务
+     */
+    public BindingCommand addTaskClick = new BindingCommand(new BindingAction() {
+        @Override
+        public void call() {
+            startActivity(AddTaskActivity.class);
+        }
+    });
+
+    /**
+     * 搜索任务
+     */
+    public BindingCommand searchTaskClick = new BindingCommand(new BindingAction() {
+        @Override
+        public void call() {
+            //TODO 跳转到搜索任务页
+            //lt
+            startActivity(SearchHistoryKeywordActivity.class);
+        }
+    });
+
+    public BindingCommand<RefreshLayout> onLoadMoreListener = new BindingCommand<>(new BindingConsumer<RefreshLayout>() {
+        @Override
+        public void call(RefreshLayout refreshLayout) {
+            getTasksData();
+        }
+    });
+
+    public BindingCommand<RefreshLayout> onRefreshListener = new BindingCommand<>(new BindingConsumer<RefreshLayout>() {
+        @Override
+        public void call(RefreshLayout refreshLayout) {
+            page = 1;
+            itemList.clear();
+            getTasksData();
+        }
+    });
+
+    private void getTasksData() {
+        request(model.getTasks(Const.header(), Const.CREATED, Const.PERSON, currentDate, currentDate, "", page + "", "10"), new ApiCallBack<TasksBean>() {
+            @Override
+            protected void onSuccess(TasksBean tasksBean, String message) {
+                List<TaskBean> tasks = tasksBean.getTasks();
+                int tasksSize = tasks.size();
+                for (TaskBean bean : tasks) {
+                    itemList.add(new TaskItemViewModel(TaskFragmentViewModel.this, bean));
+                }
+                //刷新
+                if (page == 1) {
+                    if (tasksSize != 10) {
+                        swipeRefreshUC.finishRefreshingWithNoMore.call();
+                    } else {
+                        swipeRefreshUC.finishRefreshing.call();
+                    }
+                } else {
+                    //加载
+                    if (tasksSize != 10) {
+                        swipeRefreshUC.finishLoadMoreWithNoMore.call();
+                    } else {
+                        swipeRefreshUC.finishLoadMore.call();
+                    }
+                }
+                page++;
+            }
+
+            @Override
+            protected void onFailed(ResponseThrowable exception) {
+                //刷新
+                if (page == 1) {
+                    swipeRefreshUC.finishRefreshing.call();
+                } else {
+                    //加载
+                    swipeRefreshUC.finishLoadMore.call();
+                }
+            }
+        });
+    }
+
+
+}

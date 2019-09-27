@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.neufmer.ygfstore.ui.password.ForgotPwdViewModel" />
+
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:binding="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white_ffffff"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.login.activity.LoginActivity">
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/frame_toolbar"
+            binding:toolbarViewModel="@{viewModel.toolbarViewModel}" />
+
+        <LinearLayout
+            android:id="@+id/ll_main_ed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_50"
+                android:layout_marginEnd="@dimen/spacing_50"
+                android:background="@drawable/bg_edit_text_bottom_stroke">
+
+                <EditText
+                    android:id="@+id/et_forgot_psw_activity_cashier_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@id/tv_personal_verification_code"
+                    android:background="@drawable/bg_edit_text_bottom_stroke"
+                    android:drawableStart="@drawable/login_ed_phone"
+                    android:drawablePadding="@dimen/spacing_10"
+                    android:hint="@string/login_activity_user_id_hint"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:paddingTop="@dimen/spacing_10"
+                    android:paddingBottom="@dimen/spacing_10"
+                    android:singleLine="true"
+                    binding:textChanged="@{viewModel.accountChange}"
+                    android:text="@={viewModel.phone}"
+                    android:textColor="@color/black_333333"
+                    android:textColorHint="@color/grey_999999"
+                    android:textSize="@dimen/font_14" />
+
+                <View
+                    android:layout_width="@dimen/spacing_1"
+                    android:layout_height="@dimen/spacing_5"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/spacing_5"
+                    android:layout_marginEnd="@dimen/spacing_5"
+                    android:layout_toStartOf="@id/tv_personal_verification_code"
+                    android:background="@color/edit_line" />
+
+                <TextView
+                    android:id="@+id/tv_personal_verification_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:text="@{viewModel.sendVerCode}"
+                    android:enabled="@{viewModel.sendVerCodeEnable}"
+                    android:textColor="@color/forgot_pwd_color"
+                    android:textSize="@dimen/font_12"
+                    binding:onClickCommand="@{viewModel.sendVerificationCode}" />
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/et_forgot_psw_activity_verification_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_50"
+                android:layout_marginEnd="@dimen/spacing_50"
+                android:background="@drawable/bg_edit_text_bottom_stroke"
+                android:drawableStart="@drawable/icon_forgot_psw_verification_code"
+                android:drawablePadding="@dimen/spacing_10"
+                android:hint="@string/forgot_psw_verification_text"
+                android:inputType="number"
+                android:maxLines="1"
+                android:paddingTop="@dimen/spacing_10"
+                android:paddingBottom="@dimen/spacing_10"
+                android:singleLine="true"
+                android:text="@={viewModel.verificationCode}"
+                android:textColor="@color/black_333333"
+                android:textColorHint="@color/grey_999999"
+                android:textSize="@dimen/font_14" />
+
+            <EditText
+                android:id="@+id/et_forgot_psw_activity_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_50"
+                android:layout_marginEnd="@dimen/spacing_50"
+                android:background="@drawable/bg_edit_text_bottom_stroke"
+                android:drawableStart="@drawable/login_ed_psw"
+                android:drawablePadding="@dimen/spacing_10"
+                android:hint="@string/forgot_psw_new_password_hint"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:paddingTop="@dimen/spacing_10"
+                android:paddingBottom="@dimen/spacing_10"
+                android:singleLine="true"
+                android:text="@={viewModel.newPwd}"
+                android:textColor="@color/black_333333"
+                android:textColorHint="@color/grey_999999"
+                android:textSize="@dimen/font_14"
+                binding:textChanged="@{viewModel.textChange}" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_login_activity_sign"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_main_ed"
+            android:layout_marginLeft="@dimen/spacing_50"
+            android:layout_marginTop="145dp"
+            android:layout_marginRight="@dimen/spacing_50"
+            android:background="@drawable/btn_common_100_radius_button"
+            android:enabled="@{viewModel.btnEnable}"
+            android:gravity="center"
+            binding:onClickCommand="@{viewModel.updatePwd}"
+            android:text="@string/btn_forgot_psw_text"
+            android:textColor="@color/white_ffffff"
+            android:textSize="@dimen/font_20" />
+
+    </RelativeLayout>
+</layout>

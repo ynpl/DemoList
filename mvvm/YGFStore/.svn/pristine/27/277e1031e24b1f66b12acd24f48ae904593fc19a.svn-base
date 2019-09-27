@@ -1,0 +1,149 @@
+package com.neufmer.ygfstore.ui.main.fragment.history.fragment;
+
+import android.databinding.ObservableField;
+import android.support.annotation.NonNull;
+
+import com.neufmer.ygfstore.bean.LoginBean;
+import com.neufmer.ygfstore.view.ProgressButton;
+import com.wangxing.code.mvvm.base.MultiItemViewModel;
+import com.wangxing.code.mvvm.binding.command.BindingAction;
+import com.wangxing.code.mvvm.binding.command.BindingCommand;
+import com.wangxing.code.mvvm.binding.command.BindingConsumer;
+import com.wangxing.code.mvvm.http.ApiCallBack;
+import com.wangxing.code.mvvm.http.ResponseThrowable;
+import com.wangxing.code.mvvm.http.body.ProgressBody;
+import com.wangxing.code.mvvm.http.body.ProgressBodyListener;
+import com.wangxing.code.mvvm.http.body.ProgressInfo;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+
+/**
+ * Created by WangXing on 2019/6/13.
+ */
+public class MyMissionItemViewModel extends MultiItemViewModel<MyMissionFragmentViewModel> {
+
+    private Observable<Long> observe;
+    public ObservableField<LoginBean> field = new ObservableField<>();
+    private Disposable subscribe;
+    private ProgressButton mProgressButton;
+
+    public MyMissionItemViewModel(@NonNull MyMissionFragmentViewModel viewModel, LoginBean data) {
+        super(viewModel);
+        field.set(data);
+
+        observe = Observable.interval(700, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread());
+
+    }
+
+//    public BindingCommand viewTask = new BindingCommand(new BindingAction() {
+//        @Override
+//        public void call() {
+//            viewModel.startActivity(PatrolTaskActivity.class);
+//        }
+//    });
+
+    public BindingCommand<ProgressButton> current = new BindingCommand<ProgressButton>(new BindingConsumer<ProgressButton>() {
+        @Override
+        public void call(ProgressButton progressButton) {
+            mProgressButton = progressButton;
+        }
+    });
+
+    public BindingCommand onClick = new BindingCommand(new BindingAction() {
+        @Override
+        public void call() {
+            if (subscribe != null) {
+                subscribe.dispose();
+            }
+            mProgressButton.reset();
+        }
+    });
+
+    public BindingCommand<String> onProgressListener = new BindingCommand<String>(new BindingConsumer<String>() {
+        @Override
+        public void call(String action) {
+            Map<String, String> map = new HashMap<>();
+            ProgressBody body = new ProgressBody(map, new ProgressBodyListener() {
+                @Override
+                public void onProgress(final ProgressInfo progressInfo) {
+                            Observable.interval(progressInfo.getContentLength(), TimeUnit.MILLISECONDS)
+                            .observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<Long>() {
+                                        @Override
+                                        public void accept(Long aLong) throws Exception {
+                                            if (mProgressButton.getState() == ProgressButton.FINISH) {
+                                                subscribe.dispose();
+                                                return;
+                                            }
+                                            int p = new Random().nextInt(20);
+                                            mProgressButton.setProgress(mProgressButton.getProgress() + progressInfo.getCurrentBytes());
+
+                                        }
+                                    });
+                }
+            });
+
+//            viewModel.request(Observable.create(new ObservableOnSubscribe<body>() {
+//                @Override
+//                public void subscribe(ObservableEmitter emitter) throws Exception {
+//
+//                }
+//            }), new ApiCallBack() {
+//                @Override
+//                protected void onSuccess(Object o, String message) {
+//
+//                }
+//
+//                @Override
+//                protected void onFailed(ResponseThrowable exception) {
+//
+//                }
+//
+//                @Override
+//                public void onNext(Object o) {
+//
+//                }
+//            });
+
+
+
+            switch (action) {
+                case "progress":
+                    subscribe = observe.subscribe(new Consumer<Long>() {
+                        @Override
+                        public void accept(Long aLong) throws Exception {
+                            if (mProgressButton.getState() == ProgressButton.FINISH) {
+                                subscribe.dispose();
+                                return;
+                            }
+                            int p = new Random().nextInt(20);
+                            mProgressButton.setProgress(mProgressButton.getProgress() + p);
+
+                        }
+                    });
+                    break;
+                case "pause":
+                    subscribe.dispose();
+                    break;
+                case "resume":
+                    onProgressListener.execute("progress");
+                    break;
+                case "finish":
+                    subscribe.dispose();
+                    break;
+            }
+        }
+    });
+
+
+}

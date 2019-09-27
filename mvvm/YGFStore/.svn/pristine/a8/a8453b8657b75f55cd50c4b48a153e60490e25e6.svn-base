@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="com.neufmer.ygfstore.ui.addtask.AddTaskPersonnelGroupItemViewModel" />
+
+        <variable
+            name="viewModel"
+            type="AddTaskPersonnelGroupItemViewModel" />
+
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:binding="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginStart="@dimen/spacing_5"
+        android:layout_marginTop="@dimen/spacing_5"
+        android:layout_marginEnd="@dimen/spacing_15"
+        android:layout_marginBottom="@dimen/spacing_5">
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/dialog_member_label_selector"
+            android:button="@null"
+            android:checked="@{viewModel.itemSelect}"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/spacing_10"
+            android:paddingTop="@dimen/spacing_5"
+            android:paddingRight="@dimen/spacing_10"
+            android:paddingBottom="@dimen/spacing_5"
+            android:text="@{viewModel.itemData.name}"
+            android:textColor="@drawable/dialog_member_text_selector"
+            android:textSize="@dimen/spacing_13"
+            binding:onCheckBoxChangedCommand="@{viewModel.onCheckedChangedCommand}">
+
+        </CheckBox>
+    </FrameLayout>
+</layout>

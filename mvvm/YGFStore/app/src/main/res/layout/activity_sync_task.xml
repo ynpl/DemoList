@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="com.neufmer.ygfstore.ui.sync.SyncTaskViewModel" />
+
+        <variable
+            name="viewModel"
+            type="SyncTaskViewModel" />
+
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:binding="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context=".ui.sync.SyncTaskActivity">
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/frame_toolbar"
+            binding:toolbarViewModel="@{viewModel.toolbarViewModel}" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_sync_bg" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_45"
+                    android:gravity="center"
+                    android:text="恭喜完成本次巡查\n是否直接同步巡查信息"
+                    android:textColor="@color/black_333333"
+                    android:textSize="@dimen/font_16" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_60"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_15"
+                        android:background="@drawable/bg_return_list"
+                        android:gravity="center"
+                        android:paddingStart="@dimen/spacing_15"
+                        android:paddingTop="@dimen/spacing_5"
+                        android:paddingEnd="@dimen/spacing_15"
+                        android:paddingBottom="@dimen/spacing_5"
+                        android:text="返回列表"
+                        android:textColor="#FC5B4A"
+                        android:textSize="@dimen/font_14" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing_15"
+                        android:background="@drawable/bg_sync_now"
+                        android:gravity="center"
+                        android:paddingStart="@dimen/spacing_15"
+                        android:paddingTop="@dimen/spacing_5"
+                        android:paddingEnd="@dimen/spacing_15"
+                        android:paddingBottom="@dimen/spacing_5"
+                        android:text="立即同步"
+                        binding:onClickCommand="@{viewModel.syncClick}"
+                        android:textColor="@color/white_ffffff"
+                        android:textSize="@dimen/font_14" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</layout>

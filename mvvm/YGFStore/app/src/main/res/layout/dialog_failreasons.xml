@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="com.neufmer.ygfstore.ui.task_detail.TaskDetailViewModel" />
+
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
+
+        <variable
+            name="viewModel"
+            type="TaskDetailViewModel" />
+
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:binding="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_7F7F7F"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="220dp"
+            android:background="@color/color_FFF1F1F1"
+            android:paddingTop="@dimen/spacing_8"
+            android:paddingBottom="@dimen/spacing_8">
+
+
+            <TextView
+                android:id="@+id/cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/spacing_26"
+                android:layout_marginEnd="@dimen/spacing_15"
+                android:text="@string/common_cancel"
+                android:textColor="@color/main_blue_5584FF"
+                android:textSize="@dimen/font_16"
+                binding:onClickCommand="@{viewModel.dismissFailreasonsDialogClick}" />
+
+            <TextView
+                android:id="@+id/done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/spacing_26"
+                android:text="@string/common_complete"
+                android:textColor="@color/main_blue_5584FF"
+                android:textSize="@dimen/font_16"
+                binding:onClickCommand="@{viewModel.completeFailreasonsDialogClick}" />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="88dp"
+                android:layout_height="match_parent"
+                android:background="@color/white_ffffff"
+                android:paddingTop="@dimen/spacing_24"
+                binding:itemBinding="@{viewModel.failreasonsGroupItemBinding}"
+                binding:items="@{viewModel.failreasonsGroupItems}"
+                binding:layoutManager="@{LayoutManagers.linear()}" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_F1F1F1" />
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white_ffffff"
+                android:padding="@dimen/spacing_10"
+                binding:itemBinding="@{viewModel.failreasonsChildsItemBinding}"
+                binding:items="@{viewModel.failreasonsChildsItems}"
+                binding:layoutManager="@{LayoutManagers.linear()}" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

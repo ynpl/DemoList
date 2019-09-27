@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:binding="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.neufmer.ygfstore.ui.main.MainViewModel" />
+
+        <variable
+            name="viewModel"
+            type="MainViewModel" />
+
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--<include-->
+        <!--android:id="@+id/include"-->
+        <!--layout="@layout/frame_toolbar"-->
+        <!--binding:toolbarViewModel="@{viewModel.toolbarViewModel}" />-->
+
+        <com.wangxing.code.mvvm.view.NoScrollViewPager
+            android:id="@+id/vp_main_activity"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+        </com.wangxing.code.mvvm.view.NoScrollViewPager>
+
+        <RadioGroup
+            android:id="@+id/rg_main_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_ffffff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/spacing_5"
+            android:paddingBottom="@dimen/spacing_5">
+
+            <RadioButton
+                android:id="@+id/rb_main_activity_bottom_bar_task"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="true"
+                android:drawableTop="@drawable/bottom_bar_task"
+                android:gravity="center"
+                android:text="@string/main_activity_bottom_task"
+                android:textColor="@color/main_bottom_bat_text_color"
+                android:textSize="@dimen/font_12" />
+
+            <RadioButton
+                android:id="@+id/rb_main_activity_bottom_bar_history"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/bottom_bar_history"
+                android:gravity="center"
+                android:text="@string/main_activity_bottom_history"
+                android:textColor="@color/main_bottom_bat_text_color"
+                android:textSize="@dimen/font_12" />
+
+            <RadioButton
+                android:id="@+id/rb_main_activity_bottom_bar_mine"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/bottom_bar_mine"
+                android:gravity="center"
+                android:text="@string/main_activity_bottom_mine"
+                android:textColor="@color/main_bottom_bat_text_color"
+                android:textSize="@dimen/font_12" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+</layout>

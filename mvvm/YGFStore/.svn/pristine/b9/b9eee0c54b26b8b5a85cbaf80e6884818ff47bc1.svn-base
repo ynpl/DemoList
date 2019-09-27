@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="com.neufmer.ygfstore.ui.task_detail.TaskDetailViewModel" />
+
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
+
+        <variable
+            name="viewModel"
+            type="TaskDetailViewModel" />
+
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:binding="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/frame_toolbar"
+            binding:toolbarViewModel="@{viewModel.toolbarViewModel}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="88dp"
+                android:layout_height="match_parent"
+                android:background="@color/white_ffffff"
+                binding:itemBinding="@{viewModel.itemBinding}"
+                binding:items="@{viewModel.items}"
+                binding:layoutManager="@{LayoutManagers.linear()}" />
+
+            <com.wangxing.code.mvvm.view.NoScrollViewPager
+                android:id="@+id/no_scroll_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                binding:itemBinding="@{viewModel.pageItemBinding}"
+                binding:items="@{viewModel.pageItems}"
+                android:background="@color/grey_fafbfb">
+
+            </com.wangxing.code.mvvm.view.NoScrollViewPager>
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>

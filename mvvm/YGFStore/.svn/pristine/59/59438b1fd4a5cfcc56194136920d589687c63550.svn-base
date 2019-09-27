@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="com.neufmer.ygfstore.ui.common.mystore.MyStoreViewModel" />
+
+        <variable
+            name="viewModel"
+            type="MyStoreViewModel" />
+
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
+    </data>
+
+    <com.wangxing.code.mvvm.view.MultiStatusLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:binding="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/common_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white_ffffff"
+        android:fitsSystemWindows="true"
+        binding:emptyView="@layout/empty_status_view"
+        binding:loadingView="@layout/loading_status_view"
+        binding:noNetworkView="@layout/no_network_status_view">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".ui.login.activity.LoginActivity">
+
+            <include
+                android:id="@+id/include"
+                layout="@layout/frame_toolbar"
+                binding:toolbarViewModel="@{viewModel.toolbarViewModel}" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/common_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/mine_bg"
+                binding:itemBinding="@{viewModel.itemBinding}"
+                binding:items="@{viewModel.itemList}"
+                binding:layoutManager="@{LayoutManagers.linear()}">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+
+    </com.wangxing.code.mvvm.view.MultiStatusLayout>
+</layout>

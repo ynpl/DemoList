@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+
+    <data>
+
+        <import type="com.neufmer.ygfstore.ui.addtask.AddTaskViewModel" />
+
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
+
+        <variable
+            name="viewModel"
+            type="AddTaskViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:binding="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_7F7F7F"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="203dp"
+            android:background="@color/color_FFF1F1F1"
+            android:paddingLeft="@dimen/spacing_16"
+            android:paddingTop="@dimen/spacing_8"
+            android:paddingRight="@dimen/spacing_16"
+            android:paddingBottom="@dimen/spacing_8">
+
+            <EditText
+                android:id="@+id/view_header_search"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_30"
+                android:layout_marginEnd="@dimen/spacing_26"
+                android:layout_toStartOf="@id/do_search"
+                android:background="@drawable/bg_ygf_dialog_head_search_view"
+                android:drawableStart="@drawable/icon_dialog_search"
+                android:drawablePadding="@dimen/spacing_6"
+                android:gravity="center_vertical"
+                android:hint="@string/add_task_activity_store_info"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:paddingStart="@dimen/spacing_20"
+                android:paddingEnd="@dimen/spacing_20"
+                android:text="@={viewModel.keyWord}"
+                android:textColor="@color/black_333333"
+                android:textColorHint="@color/grey_999999"
+                android:textSize="@dimen/spacing_16" />
+
+            <TextView
+                android:id="@+id/do_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/spacing_15"
+                android:layout_toStartOf="@id/search_close"
+                android:text="@string/common_complete"
+                android:textColor="@color/main_blue_5584FF"
+                android:textSize="@dimen/font_16"
+                binding:onClickCommand="@{viewModel.selectCompleteClick}" />
+
+            <ImageView
+                android:id="@+id/search_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/search_close"
+                binding:onClickCommand="@{viewModel.dismissOwnerDialogClick}" />
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/common_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/mine_bg"
+            binding:itemBinding="@{viewModel.itemBinding}"
+            binding:items="@{viewModel.items}"
+            binding:layoutManager="@{LayoutManagers.linear()}" />
+
+
+    </LinearLayout>
+</layout>

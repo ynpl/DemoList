@@ -1,0 +1,38 @@
+package com.neufmer.ygfstore.ui.main.fragment.history.fragment;
+
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+
+import com.neufmer.ygfstore.BR;
+import com.neufmer.ygfstore.R;
+import com.neufmer.ygfstore.databinding.FragmentMyMissionBinding;
+import com.wangxing.code.mvvm.base.BaseFragment;
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class MyMissionFragment extends BaseFragment<FragmentMyMissionBinding, MyMissionFragmentViewModel> {
+
+    public MyMissionFragment() {
+    }
+
+    @Override
+    public int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return R.layout.fragment_my_mission;
+    }
+
+    @Override
+    public int initVariableId() {
+        return BR.viewModel;
+    }
+
+    @Override
+    public void initView() {
+        super.initView();
+    }
+
+}

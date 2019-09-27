@@ -1,0 +1,71 @@
+package com.neufmer.ygfstore.ui.main.fragment.history.fragment;
+
+import android.app.Application;
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
+import android.support.annotation.NonNull;
+
+import com.neufmer.ygfstore.BR;
+import com.neufmer.ygfstore.R;
+import com.neufmer.ygfstore.bean.LoginBean;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.wangxing.code.mvvm.base.BaseViewModel;
+import com.wangxing.code.mvvm.base.MultiItemViewModel;
+import com.wangxing.code.mvvm.binding.command.BindingCommand;
+import com.wangxing.code.mvvm.binding.command.BindingConsumer;
+import com.wangxing.code.mvvm.utils.ToastUtils;
+
+import me.tatarka.bindingcollectionadapter2.ItemBinding;
+import me.tatarka.bindingcollectionadapter2.OnItemBind;
+
+/**
+ * Created by WangXing on 2019/6/13.
+ */
+public class MyMissionFragmentViewModel extends BaseViewModel {
+
+    public ObservableList<MultiItemViewModel> itemList = new ObservableArrayList<>();
+    public ItemBinding<MultiItemViewModel> itemBinding = ItemBinding.of(new OnItemBind<MultiItemViewModel>() {
+        @Override
+        public void onItemBind(ItemBinding itemBinding, int position, MultiItemViewModel item) {
+            if (position == 0) {
+//                获取itemtype
+                Object itemType = item.getItemType();
+//                设置itemtype
+                item.multiItemType("header_type");
+                itemBinding.set(BR.viewModel, R.layout.header_history_task_list);
+            } else {
+                itemBinding.set(BR.viewModel, R.layout.item_task_history_list);
+            }
+        }
+    });
+
+
+    public MyMissionFragmentViewModel(@NonNull Application application) {
+        super(application);
+        for (int i = 0; i < 30; i++) {
+            if (0 == i){
+                MyMissionItemHeaderViewModel myMissionItemHeaderViewModel = new MyMissionItemHeaderViewModel(this, new LoginBean());
+                itemList.add(myMissionItemHeaderViewModel);
+            }else {
+                MyMissionItemViewModel myMissionItemViewModel = new MyMissionItemViewModel(this, new LoginBean());
+                itemList.add(myMissionItemViewModel);
+            }
+        }
+
+    }
+
+    public BindingCommand<RefreshLayout> onLoadMoreListener = new BindingCommand<RefreshLayout>(new BindingConsumer<RefreshLayout>() {
+        @Override
+        public void call(RefreshLayout refreshLayout) {
+            ToastUtils.showShort("onLoadMoreListener");
+        }
+    });
+
+    public BindingCommand<RefreshLayout> onRefreshListener = new BindingCommand<RefreshLayout>(new BindingConsumer<RefreshLayout>() {
+        @Override
+        public void call(RefreshLayout refreshLayout) {
+            ToastUtils.showShort("onRefreshListener");
+        }
+    });
+
+}

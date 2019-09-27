@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="red_e02020">#E02020</color>
+
+    <color name="orange_fc564e">#FC564E</color>
+    <color name="orange_fc5b4a">#FC5B4A</color>
+    <color name="orange_fecd97">#FECD97</color>
+    <color name="orange_fffe8c37">#FFFE8C37</color>
+    <color name="orange_fffc534d">#fffc534d</color>
+    <color name="orange_f9534b">#F9534B</color>
+    <color name="orange_fffe9d30">#fffe9d30</color>
+    <color name="orange_fdead6">#FDEAD6</color>
+
+    <color name="black_FF999999">#FF999999</color>
+    <color name="black_FF666666">#FF666666</color>
+    
+    <color name="blue_5584FF">#5584FF</color>
+    <color name="blue_AAC1FF">#AAC1FF</color>
+
+
+    <color name="edit_line">#D8D8D8</color>
+    <color name="color_999999">#999999</color>
+    <color name="mine_bg">#FAFBFB</color>
+    <color name="main_blue_5584FF">#5584FF</color>
+    <color name="color_FF5584FF">#5584FF</color>
+    <color name="color_FFF1F1F1">#FFF1F1F1</color>
+    <color name="color_F1F1F1">#F1F1F1</color>
+    <color name="color_7F7F7F">#997F7F7F</color>
+    <color name="color_CCDAFF">#CCDAFF</color>
+    <color name="color_FF000000">#FF000000</color>
+    <color name="color_FD7546">#FD7546</color>
+
+    <color name="grey_fafbfb">#FAFBFB</color>
+
+</resources>

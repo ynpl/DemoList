@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        icon="@drawable/bottom_bar_task"
+        id="@+id/tab_bottom_bar_task"
+        title="@string/main_activity_bottom_task" />
+
+    <tab
+        icon="@drawable/bottom_bar_history"
+        id="@+id/tab_bottom_bar_history"
+        title="@string/main_activity_bottom_history" />
+    <tab
+        icon="@drawable/bottom_bar_mine"
+        id="@+id/tab_bottom_bar_mine.xml"
+        title="@string/main_activity_bottom_mine" />
+
+
+</tabs>

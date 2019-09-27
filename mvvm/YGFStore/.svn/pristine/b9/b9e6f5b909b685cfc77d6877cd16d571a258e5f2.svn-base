@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.neufmer.ygfstore.ui.task_detail.failreasonsitem.TaskDetailFailreasonsChildsItemViewModel" />
+
+        <variable
+            name="viewModel"
+            type="TaskDetailFailreasonsChildsItemViewModel" />
+
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:binding="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/spacing_10"
+        binding:onClickCommand="@{viewModel.onItemClick}">
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_fail_reasons_childs"
+            android:button="@null"
+            android:checked="@={viewModel.selectFlag}"
+            android:clickable="false"
+            android:paddingStart="@dimen/spacing_10"
+            android:paddingTop="@dimen/spacing_6"
+            android:paddingEnd="@dimen/spacing_8"
+            android:paddingBottom="@dimen/spacing_6"
+            android:text="@{viewModel.mData.name}"
+            android:textColor="@color/fail_reasons_text_color"
+            android:textSize="@dimen/font_14"
+            tools:ignore="RtlSymmetry" />
+    </FrameLayout>
+
+</layout>
+

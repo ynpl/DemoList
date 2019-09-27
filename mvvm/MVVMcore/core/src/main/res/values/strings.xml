@@ -1,0 +1,37 @@
+<resources>
+    <string name="common_exit_app">再按一次退出应用</string>
+    <string name="common_loading">加载中…</string>
+    <string name="no_net_work">当前网络不可用，请检查网络情况</string>
+    <string name="request_error_code_400">发送了一条异常请求</string>
+    <string name="request_error_code_401">操作未授权</string>
+    <string name="request_error_code_403">服务器拒绝了请求</string>
+    <string name="request_error_code_404">服务器无法找到所请求的URL</string>
+    <string name="request_error_code_405">不允许使用的请求方法</string>
+    <string name="request_error_code_408">请求超时</string>
+    <string name="request_error_code_413">请求实体过大</string>
+    <string name="request_error_code_414">请求URL过长</string>
+    <string name="request_error_code_500">服务器内部错误</string>
+    <string name="request_error_code_503">服务器不可用</string>
+    <string name="request_error_code_default">网络错误</string>
+    <string name="request_error_message_1000">未知错误</string>
+    <string name="request_error_message_1001">解析错误</string>
+    <string name="request_error_message_1002">连接失败</string>
+    <string name="request_error_message_1005">证书验证失败</string>
+    <string name="request_error_message_1006">连接超时</string>
+    <string name="request_error_message_1007">主机地址未知</string>
+
+    <string name="empty_view_hint">暂无数据</string>
+    <string name="error_view_hint">加载失败</string>
+    <string name="no_network_view_hint">网络异常</string>
+
+    <string name="customactivityoncrash_error_activity_error_occurred_explanation">发生意外错误。\n抱歉，给您带来不便。</string>
+    <string name="customactivityoncrash_error_activity_restart_app">重新启动</string>
+    <string name="customactivityoncrash_error_activity_close_app">关闭程序</string>
+    <string name="customactivityoncrash_error_activity_error_details">错误日志</string>
+    <string name="customactivityoncrash_error_activity_error_details_title">错误详情</string>
+    <string name="customactivityoncrash_error_activity_error_details_close">关闭</string>
+    <string name="customactivityoncrash_error_activity_error_details_copy">复制日志</string>
+    <string name="customactivityoncrash_error_activity_error_details_copied">复制日志</string>
+    <string name="customactivityoncrash_error_activity_error_details_clipboard_label">错误信息</string>
+
+</resources>

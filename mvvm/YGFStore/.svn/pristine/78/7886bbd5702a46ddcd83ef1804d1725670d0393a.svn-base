@@ -1,0 +1,52 @@
+package com.neufmer.ygfstore.ui.main.fragment.history.fragment;
+
+import android.databinding.ObservableBoolean;
+import android.databinding.ObservableField;
+import android.support.annotation.NonNull;
+
+import com.neufmer.ygfstore.bean.LoginBean;
+import com.wangxing.code.mvvm.base.MultiItemViewModel;
+import com.wangxing.code.mvvm.binding.command.BindingAction;
+import com.wangxing.code.mvvm.binding.command.BindingCommand;
+
+/**
+ * Created by WangXing on 2019/6/13.
+ */
+public class MyMissionItemHeaderViewModel extends MultiItemViewModel {
+
+    public ObservableField<LoginBean> field = new ObservableField<>();
+    //左边radioButton选项观察
+    public ObservableBoolean leftRadioCheck = new ObservableBoolean(true);
+    //右边radioButton选项观察
+    public ObservableBoolean rightRadioCheck = new ObservableBoolean(false);
+
+    public MyMissionItemHeaderViewModel(@NonNull MyMissionFragmentViewModel viewModel, LoginBean data) {
+        super(viewModel);
+//        field.set(data);
+    }
+
+    /**
+     * 切换完成任务list
+     */
+    public BindingCommand leftTabClick = new BindingCommand(new BindingAction() {
+        @Override
+        public void call() {
+            if (!leftRadioCheck.get()) {
+                leftRadioCheck.set(true);
+                rightRadioCheck.set(false);
+            }
+        }
+    });
+    /**
+     * 切换待同步任务list
+     */
+    public BindingCommand rightTabClick = new BindingCommand(new BindingAction() {
+        @Override
+        public void call() {
+            if (!rightRadioCheck.get()) {
+                rightRadioCheck.set(true);
+                leftRadioCheck.set(false);
+            }
+        }
+    });
+}

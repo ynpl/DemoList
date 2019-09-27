@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.neufmer.ygfstore.ui.login.LoginViewModel" />
+
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:binding="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white_ffffff"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.login.activity.LoginActivity">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            android:src="@drawable/ygf_login_logo" />
+
+        <LinearLayout
+            android:id="@+id/ll_main_ed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/logo"
+            android:layout_marginTop="112dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_login_activity_cashier_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_50"
+                android:layout_marginEnd="@dimen/spacing_50"
+                android:background="@drawable/bg_edit_text_bottom_stroke"
+                android:drawableStart="@drawable/login_ed_phone"
+                android:drawablePadding="@dimen/spacing_10"
+                android:hint="@string/login_activity_user_id_hint"
+                android:inputType="number"
+                android:maxLines="1"
+                android:paddingTop="@dimen/spacing_10"
+                android:paddingBottom="@dimen/spacing_10"
+                android:singleLine="true"
+                android:text="@={viewModel.account}"
+                android:textColor="@color/black_333333"
+                android:textColorHint="@color/grey_999999"
+                android:textSize="@dimen/font_14" />
+
+            <EditText
+                android:id="@+id/et_login_activity_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_50"
+                android:layout_marginEnd="@dimen/spacing_50"
+                android:background="@drawable/bg_edit_text_bottom_stroke"
+                android:drawableStart="@drawable/login_ed_psw"
+                android:drawablePadding="@dimen/spacing_10"
+                android:hint="@string/login_activity_password_hint"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:paddingTop="@dimen/spacing_10"
+                android:paddingBottom="@dimen/spacing_10"
+                android:singleLine="true"
+                android:text="@={viewModel.password}"
+                android:textColor="@color/black_333333"
+                android:textColorHint="@color/grey_999999"
+                android:textSize="@dimen/font_14"
+                binding:textChanged="@{viewModel.textChange}" />
+
+            <TextView
+                android:id="@+id/tw_login_activity_forgot_psw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="@dimen/spacing_10"
+                android:layout_marginEnd="@dimen/spacing_50"
+                android:gravity="center"
+                android:text="@string/login_activity_forgot_psw_text"
+                android:textColor="@color/grey_999999"
+                android:textSize="@dimen/font_14"
+                binding:onClickCommand="@{viewModel.forgetPassword}" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_change_psw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_main_ed"
+            android:layout_marginLeft="@dimen/spacing_50"
+            android:layout_marginTop="@dimen/spacing_30"
+            android:layout_marginRight="@dimen/spacing_50"
+            android:background="@drawable/btn_common_100_radius_button"
+            android:enabled="@{viewModel.loginBtnEnable}"
+            android:gravity="center"
+            android:text="@string/login_activity_sign_text"
+            android:textColor="@color/white_ffffff"
+            android:textSize="@dimen/font_20"
+            binding:onClickCommand="@{viewModel.loginClick}" />
+
+    </RelativeLayout>
+
+
+</layout>

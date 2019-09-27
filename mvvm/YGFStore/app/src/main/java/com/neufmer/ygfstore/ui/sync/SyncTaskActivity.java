@@ -1,0 +1,48 @@
+package com.neufmer.ygfstore.ui.sync;
+
+import android.os.Bundle;
+
+import com.neufmer.ygfstore.BR;
+import com.neufmer.ygfstore.R;
+import com.neufmer.ygfstore.databinding.ActivitySyncTaskBinding;
+import com.wangxing.code.mvvm.base.BaseActivity;
+import com.wangxing.code.mvvm.utils.StatusBarUtils;
+
+public class SyncTaskActivity extends BaseActivity<ActivitySyncTaskBinding, SyncTaskViewModel> {
+
+
+    private String mTaskId;
+
+    @Override
+    public int initContentView(Bundle savedInstanceState) {
+        return R.layout.activity_sync_task;
+    }
+
+    @Override
+    public int initVariableId() {
+        return BR.viewModel;
+    }
+
+    @Override
+    public void initView() {
+        super.initView();
+        StatusBarUtils.setStatusBar(this, false, false);
+        setSupportActionBar(binding.include.toolbar);
+        viewModel.initToolbar();
+    }
+
+    @Override
+    public void initParam() {
+        super.initParam();
+        Bundle extras = getIntent().getExtras();
+        assert extras != null;
+        mTaskId = extras.getString("taskId");
+    }
+
+    @Override
+    public void initData() {
+        super.initData();
+        viewModel.setTaskId(mTaskId);
+        viewModel.completeTask(mTaskId);
+    }
+}

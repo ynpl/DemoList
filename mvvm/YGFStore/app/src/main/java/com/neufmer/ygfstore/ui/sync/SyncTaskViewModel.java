@@ -1,0 +1,347 @@
+package com.neufmer.ygfstore.ui.sync;
+
+import android.annotation.SuppressLint;
+import android.app.Application;
+import android.content.Intent;
+import android.support.annotation.NonNull;
+
+import com.neufmer.ygfstore.Const;
+import com.neufmer.ygfstore.R;
+import com.neufmer.ygfstore.api.source.TaskModel;
+import com.neufmer.ygfstore.db.AppDatabase;
+import com.neufmer.ygfstore.db.dao.ContentParamDao;
+import com.neufmer.ygfstore.db.dao.SubmitParamDao;
+import com.neufmer.ygfstore.db.entity.ContentParamEntity;
+import com.neufmer.ygfstore.db.entity.SubmitParamEntity;
+import com.neufmer.ygfstore.toolbar.ToolbarViewModel;
+import com.neufmer.ygfstore.ui.main.MainActivity;
+import com.wangxing.code.mvvm.binding.command.BindingAction;
+import com.wangxing.code.mvvm.binding.command.BindingCommand;
+import com.wangxing.code.mvvm.http.ApiCallBack;
+import com.wangxing.code.mvvm.http.ResponseThrowable;
+import com.wangxing.code.mvvm.http.util.RequestBodyUtil;
+import com.wangxing.code.mvvm.manager.CacheInfoManager;
+import com.wangxing.code.mvvm.utils.GsonUtil;
+import com.wangxing.code.mvvm.utils.KLog;
+import com.wangxing.code.mvvm.utils.StringUtils;
+import com.wangxing.code.mvvm.utils.ToastUtils;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import io.reactivex.Observable;
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.observables.GroupedObservable;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+
+/**
+ * Created by WangXing on 2019/7/18.
+ */
+public class SyncTaskViewModel extends ToolbarViewModel<TaskModel> {
+
+
+    private final ContentParamDao contentParamDao;
+    private final SubmitParamDao submitParamDao;
+    private List<ContentParamEntity> mContentParamEntities;
+    private SubmitParamEntity mSubmitParamEntity;
+
+    public SyncTaskViewModel(@NonNull Application application) {
+        super(application);
+        AppDatabase database = AppDatabase.getDatabase();
+        contentParamDao = database.contentParamDao();
+        submitParamDao = database.SubmitParamDao();
+    }
+
+    @Override
+    protected void initToolbar() {
+        super.initToolbar();
+        setTitleTextRes(R.string.common_space);
+    }
+
+    @SuppressLint("CheckResult")
+    public BindingCommand syncClick = new BindingCommand(new BindingAction() {
+
+        @Override
+        public void call() {
+            final int size = mContentParamEntities.size();
+            final ContentParamEntity[] array = mContentParamEntities.toArray(new ContentParamEntity[size]);
+//            Observable.fromArray(array)
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .concatMap(new Function<ContentParamEntity, ObservableSource<List<String>>>() {
+//                        @Override
+//                        public ObservableSource<List<String>> apply(ContentParamEntity entity) throws Exception {
+//                            return Observable.fromArray(entity.image);
+//                        }
+//                    }).concatMap(new Function<List<String>, ObservableSource<String>>() {
+//                @Override
+//                public ObservableSource<String> apply(List<String> strings) throws Exception {
+////                    RequestBodyUtil.getFilePart("file",)
+//                    int size1 = strings.size();
+//                    String[] str = strings.toArray(new String[size1]);
+//                    return Observable.fromArray(str);
+//                }
+//            })
+//                    .subscribe();
+            //上传图片
+            Observable.fromArray(array)
+                    .groupBy(new Function<ContentParamEntity, List<String>>() {
+                        @Override
+                        public List<String> apply(ContentParamEntity entity) throws Exception {
+                            return entity.getImage();
+                        }
+                    })
+                    .subscribe(new Consumer<GroupedObservable<List<String>, ContentParamEntity>>() {
+                        @Override
+                        public void accept(GroupedObservable<List<String>, ContentParamEntity> observable) throws Exception {
+
+                            int keySize = observable.getKey().size();
+                            if (keySize != 0) {
+                                final String[] images = observable.getKey().toArray(new String[keySize]);
+
+                                observable.subscribe(new Consumer<ContentParamEntity>() {
+                                    @Override
+                                    public void accept(final ContentParamEntity entity) throws Exception {
+
+                                        Observable.fromArray(images).concatMap(new Function<String, Observable<ArrayList<String>>>() {
+                                            @Override
+                                            public Observable<ArrayList<String>> apply(String s) throws Exception {
+                                                final ArrayList<String> resultList = new ArrayList<>();
+//                                        MultipartBody.Part file = RequestBodyUtil.getFilePart("file", s);
+                                                File file = new File(s);
+                                                RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+                                                MultipartBody.Part formData = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+                                                request(model.postUpload(Const.header(), formData), new ApiCallBack<String>() {
+
+                                                    @Override
+                                                    protected void onSuccess(String s, String message) {
+                                                        resultList.add(s);
+                                                    }
+
+                                                    @Override
+                                                    protected void onFailed(ResponseThrowable exception) {
+                                                        KLog.e(GsonUtil.GsonString(exception.message));
+                                                    }
+                                                });
+                                                if (resultList.size() == images.length) {
+                                                    return Observable.just(resultList);
+                                                } else {
+                                                    return Observable.just(new ArrayList<String>(
+
+                                                    ));
+                                                }
+
+                                            }
+                                        })
+                                                .subscribe(new Consumer<ArrayList<String>>() {
+                                                    @Override
+                                                    public void accept(ArrayList<String> strings) throws Exception {
+                                                        if (!strings.isEmpty()) {
+                                                            entity.setImage(strings);
+                                                        }
+
+                                                    }
+                                                });
+
+                                    }
+                                }, new Consumer<Throwable>() {
+                                    @Override
+                                    public void accept(Throwable throwable) throws Exception {
+
+                                    }
+                                }, new Action() {
+                                    @Override
+                                    public void run() throws Exception {
+                                        final String[] inspectorSign = new String[1];
+                                        final String[] contactSign = new String[1];
+                                        //完成  上传巡店签名
+                                        if (!StringUtils.isEmpty(mSubmitParamEntity.getInspectorSign())) {
+                                            final Map<String, String> map = new HashMap<>();
+                                            map.put("content", GsonUtil.GsonString(array));
+                                            map.put("abandonReason", mSubmitParamEntity.getAbandonReason());
+                                            map.put("remark", mSubmitParamEntity.getRemark());
+                                            File file = new File(mSubmitParamEntity.getInspectorSign());
+                                            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+                                            MultipartBody.Part formData = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+                                            request(model.postUpload(Const.header(), formData), new ApiCallBack<String>() {
+
+                                                @Override
+                                                protected void onSuccess(String s, String message) {
+                                                    inspectorSign[0] = s;
+                                                    //巡查签名网络路径
+                                                }
+
+                                                @Override
+                                                protected void onFailed(ResponseThrowable exception) {
+                                                    KLog.e(GsonUtil.GsonString(exception.message));
+                                                }
+
+                                                @Override
+                                                public void onComplete() {
+                                                    super.onComplete();
+                                                    //完成后店名签名不为空继续上传
+                                                    if (!StringUtils.isEmpty(mSubmitParamEntity.getContactSign())) {
+                                                        File file = new File(mSubmitParamEntity.getContactSign());
+                                                        RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+                                                        MultipartBody.Part formData = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+                                                        request(model.postUpload(Const.header(), formData), new ApiCallBack<String>() {
+
+                                                            @Override
+                                                            protected void onSuccess(String s, String message) {
+                                                                contactSign[0] = s;
+                                                                //巡查签名网络路径
+                                                            }
+
+                                                            @Override
+                                                            protected void onFailed(ResponseThrowable exception) {
+                                                                KLog.e(GsonUtil.GsonString(exception.message));
+                                                            }
+
+                                                            @Override
+                                                            public void onComplete() {
+                                                                super.onComplete();
+
+                                                                map.put("inspectorSign", inspectorSign[0]);
+                                                                map.put("contactSign", contactSign[0]);
+
+                                                                RequestBody body = RequestBodyUtil.getBody(map);
+                                                                // TODO: 2019/7/18  调用提交巡查数据接口
+                                                                //lt
+                                                                if(!StringUtils.isEmpty(taskId))
+                                                                    request(model.submit(Const.header(), taskId, body), new ApiCallBack() {
+                                                                        @Override
+                                                                        protected void onSuccess(Object o, String message) {
+                                                                            ToastUtils.showShort("提交成功");
+                                                                            gotoTaskListActivity();
+                                                                        }
+
+                                                                        @Override
+                                                                        protected void onFailed(ResponseThrowable exception) {
+                                                                            ToastUtils.showShort("提交失败");
+                                                                        }
+                                                                    },true);
+                                                            }
+                                                        });
+                                                    } else {
+                                                        //为空直接提交上传数据
+                                                        map.put("inspectorSign", inspectorSign[0]);
+                                                        map.put("contactSign", contactSign[0]);
+                                                        RequestBody body = RequestBodyUtil.getBody(map);
+                                                        // TODO: 2019/7/18  调用提交巡查数据接口
+                                                        //lt
+                                                        if(!StringUtils.isEmpty(taskId))
+                                                            request(model.submit(Const.header(), taskId, body), new ApiCallBack() {
+                                                                @Override
+                                                                protected void onSuccess(Object o, String message) {
+                                                                    ToastUtils.showShort("提交成功");
+                                                                    gotoTaskListActivity();
+                                                                }
+
+                                                                @Override
+                                                                protected void onFailed(ResponseThrowable exception) {
+                                                                    ToastUtils.showShort("提交失败");
+                                                                }
+                                                            },true);
+                                                    }
+                                                }
+                                            });
+                                        }
+
+                                    }
+                                });
+                            }
+
+
+                        }
+                    });
+
+
+        }
+    });
+
+    private void gotoTaskListActivity() {
+        startActivity (MainActivity.class);
+    }
+
+    /**
+     * 完成任务
+     *
+     * @param taskId
+     */
+    protected void completeTask(String taskId) {
+
+        //完成任务接口
+//        request(model.getComplete(Const.header(), taskId), new ApiCallBack<Void>() {
+//
+//            @Override
+//            protected void onSuccess(Void aVoid, String message) {
+//
+//            }
+//
+//            @Override
+//            protected void onFailed(ResponseThrowable exception) {
+//
+//            }
+//        }, true);
+
+        contentParamDao.queryContentList(CacheInfoManager.getInstance().getUserId(), taskId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(new SingleObserver<List<ContentParamEntity>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<ContentParamEntity> contentParamEntities) {
+                        KLog.e("DB contentParamEntities is : " + GsonUtil.GsonString(contentParamEntities));
+                        mContentParamEntities = contentParamEntities;
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        KLog.e(e.toString());
+                    }
+                });
+
+        submitParamDao.querySubmitDetail(CacheInfoManager.getInstance().getUserId(), taskId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(new SingleObserver<SubmitParamEntity>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(SubmitParamEntity submitParamEntity) {
+                        mSubmitParamEntity = submitParamEntity;
+                        KLog.e("DB SubmitParamEntity is : " + GsonUtil.GsonString(submitParamEntity));
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
+
+    }
+
+
+    private String taskId = new String();
+    protected void setTaskId(String taskId){
+        this.taskId = taskId;
+    }
+
+}

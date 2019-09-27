@@ -1,0 +1,166 @@
+<resources>
+    <string name="app_name">YGFStore</string>
+    <string name="common_complete">完成</string>
+    <string name="common_sure">确定</string>
+    <string name="common_cancel">取消</string>
+    <string name="common_tip">提醒</string>
+    <string name="common_clear">清除</string>
+    <string name="common_yes">是</string>
+    <string name="common_no">否</string>
+    <string name="common_i_know">我知道了</string>
+    <string name="common_space"></string>
+
+    <string-array name="week_string_array">
+        <item>日</item>
+        <item>一</item>
+        <item>二</item>
+        <item>三</item>
+        <item>四</item>
+        <item>五</item>
+        <item>六</item>
+    </string-array>
+
+    <!--MainActivity-->
+    <string name="main_activity_bottom_task">任务列表</string>
+    <string name="main_activity_bottom_history">历史巡查</string>
+    <string name="main_activity_bottom_mine">我的</string>
+
+    <!--TaskFragment-->
+    <string name="task_fragment_search_hint">搜索任务</string>
+    <string name="task_fragment_date_format">%1$d月%2$d日·星期%3$s</string>
+
+    <!--HistoryFragment-->
+    <string name="history_fragment_current_month">本月</string>
+
+    <!--MineFragment-->
+    <string name="mine_fragment_title">我的</string>
+
+    <!--SearchHistoryDateActivity-->
+    <string name="search_date_activity_title">选择时间</string>
+    <string name="search_date_activity_type_month">按月选择</string>
+    <string name="search_date_activity_type_day">按日选择</string>
+    <string name="search_date_activity">至</string>
+
+    <!--SearchHistoryKeywordActivity-->
+    <string name="search_keyword_activity_hint">巡查店铺/法人姓名</string>
+    <string name="search_keyword_activity_search_history">历史搜索</string>
+
+    <!--ForgotPwdActivity-->
+    <string name="forgot_pwd_activity_title">找回密码</string>
+    <string name="forgot_pwd_activity_give_up_forget_dialog_tip">您是否要放弃密码</string>
+    <string name="forgot_pwd_activity_success_forget_dialog_tip">您已修改成功，自动为您转到登录页</string>
+
+    <!--ChangePwdActivity-->
+    <string name="change_pwd_activity_title">修改密码</string>
+    <string name="change_pwd_activity_dialog_tip">旧密码错误，请重新输入</string>
+
+    <!--AboutUsActivity-->
+    <string name="about_us_activity_title">关于我们</string>
+    <string name="about_us_activity_scoring">去评分</string>
+
+    <!--AddTaskActivity-->
+    <string name="add_task_activity_store_info">门店信息</string>
+    <string name="add_task_activity_give_up_tip">确认要放弃此次发布</string>
+    <string name="add_task_activity_no_position">无法定位</string>
+
+    <!--PatrolTaskActivity-->
+    <string name="patrol_task_activity_title">巡查任务</string>
+    <string name="patrol_task_activity_address_error">地址有误</string>
+    <string name="patrol_task_activity_tip">当前位置与门店地址不匹配，请抵达后再开始巡查。</string>
+    <string name="patrol_task_activity_complete">未完成</string>
+    <string name="patrol_task_activity_completed">已完成</string>
+
+    <!--TaskDetailActivity-->
+    <string name="task_detail_activity_title">巡查信息</string>
+    <string name="task_detail_activity_hint_notes">备注说明</string>
+    <string name="task_detail_activity_photograph">拍照</string>
+    <string name="task_detail_activity_hint_select_from_the_album">从相册选择</string>
+    <string name="task_detail_activity_save_task_tip">您正在进行巡查，如您离开此页面，\n本次巡查记录是否保存草稿</string>
+    <string name="task_detail_activity_save">保存草稿</string>
+    <string name="task_detail_activity_not_save">不保存</string>
+    <string name="task_detail_activity_not_save_success">保存成功</string>
+    <string name="task_detail_activity_re_location">重新定位</string>
+
+    <!--PatrolSignatureActivity-->
+    <string name="patrol_signature_activity_title">巡查签字</string>
+
+    <!--StoreFrontSignatureActivity-->
+    <string name="store_front_signature_activity_title">店面签字</string>
+    <string name="store_front_signature_activity_give_up_sign">放弃签字</string>
+    <string name="store_front_signature_activity_text_tip">店面问题将依据【哈尔滨杨国福麻辣烫餐饮服务有限公司关于加盟商违反相关经营管理问题的处理办法（2019）&amp;上海众福餐饮管理有限公司&amp;上海鑫绪餐饮管理有限公司关于加盟商违反相关经营管理问题的处理办法（2019）】处理</string>
+    <!--toast-->
+    <string name="toast_content_1">账号或密码错误请重新输入</string>
+    <string name="toast_content_2">手机号格式不正确</string>
+    <string name="toast_content_3">密码已修改</string>
+    <string name="toast_content_4">任务发布成功</string>
+
+    <!--MyStoreActivity-->
+    <string name="my_store_activity_title">管辖门店</string>
+
+    <!--GiveUpSignatureActivity-->
+    <string name="give_up_signature_activity_title">放弃签字</string>
+    <string name="give_up_signature_activity_reason">放弃原因</string>
+    <string name="give_up_signature_activity_reason_0">法人不在门店</string>
+    <string name="give_up_signature_activity_reason_1">对巡查结果存在异议</string>
+    <string name="give_up_signature_activity_reason_2">其他原因</string>
+    <string name="give_up_signature_activity_reason_hint">请填写备注原因</string>
+
+    <!--ViewPictureActivity-->
+    <string name="view_picture_activity_add_pic">添加图片</string>
+    <string name="view_picture_activity_title">查看图片</string>
+
+    <string name="activity_forgot_psw_verification_code">发送验证码</string>
+    <string name="activity_forgot_psw_verification_code_countdown">%1$ds后重新获取</string>
+    <string name="forgot_psw_verification_text">请输入验证码</string>
+    <string name="login_activity_user_id_hint">请输入手机号</string>
+    <string name="login_activity_password_hint">请输入密码</string>
+    <string name="login_activity_forgot_psw_text">忘记密码？</string>
+    <string name="login_activity_sign_text">商户登录</string>
+    <string name="forgot_psw_new_password_hint">请输入6-8位新密码</string>
+    <string name="btn_forgot_psw_text">重置密码</string>
+    <string name="view_mine_jurisdiction_text">管辖门店</string>
+    <string name="view_mine_about_us_text">关于我们</string>
+    <string name="view_mine_change_psw_text">修改密码</string>
+    <string name="view_mine_logout_text">退出当前登录</string>
+    <string name="hint_change_psw_old_text">请填写旧密码</string>
+    <string name="hint_change_psw_new_text">请填写新密码</string>
+    <string name="change_psw_new_text">新密码</string>
+    <string name="change_psw_old_text">旧密码</string>
+    <string name="btn_confirm">确认</string>
+    <string name="btn_add_new_task">新建任务</string>
+    <string name="btn_check_task">查看任务</string>
+    <string name="store_owner">门店法人:</string>
+    <string name="store_code">客户编码:</string>
+    <string name="store_address">门店地址:</string>
+    <string name="check_member">巡查人员:</string>
+    <string name="create_time">发布时间:</string>
+    <string name="check_time">巡查时间:</string>
+    <string name="check_surface">巡查表:</string>
+    <string name="check_stadus">巡店状态:</string>
+    <string name="check_doing_times">需完成次数:</string>
+    <string name="check_done_times">已完成次数:</string>
+    <string name="now_time">当前时间:</string>
+    <string name="check_location">当前位置:</string>
+    <string name="check_store">巡查门店:</string>
+    <string name="total_check">巡查次数:</string>
+    <string name="hint_choose_check_store">请选择巡查门店</string>
+    <string name="hint_choose_check_personnel">请选择巡查人员</string>
+    <string name="hint_choose_check_time">请选择巡查时间</string>
+    <string name="hint_choose_check_count">请填写巡查次数</string>
+    <string name="hint_choose_check_surface">请选择巡查规则表</string>
+    <string name="common_connection_error">网络连接出错，请检查设置</string>
+    <string name="btn_sync">同步</string>
+    <string name="history_list_done_text">完成任务</string>
+    <string name="history_list_waiting_sync_text">待同步任务</string>
+
+    <string name="choose_address">选择地区:</string>
+    <string name="hint_choose_address">地区信息:</string>
+    <string name="address_detail">详细地址:</string>
+    <string name="hint_address_detail">街道门牌信息:</string>
+    <string name="change_address">修改地址</string>
+
+    <string name="my_mission">我的任务</string>
+    <string name="history_mission">历史任务</string>
+    <string name="team_mission">团队任务</string>
+
+</resources>

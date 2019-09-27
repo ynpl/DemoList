@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:binding="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.neufmer.ygfstore.ui.view_picture.ViewPictureItemViewModel" />
+
+        <variable
+            name="viewModel"
+            type="ViewPictureItemViewModel" />
+
+    </data>
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            binding:placeholderRes="@drawable/img_placeholder"
+            binding:round="@{viewModel.roundSize}"
+            binding:loadWithRound="@{viewModel.imageUrl}" />
+
+    </RelativeLayout>
+</layout>

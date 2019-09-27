@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.wangxing.code.mvvm.utils.StringUtils" />
+
+        <variable
+            name="viewModel"
+            type="com.neufmer.ygfstore.ui.task_detail.multiitem.ImageItemViewModel" />
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:binding="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_5"
+        android:layout_marginEnd="@dimen/spacing_5">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            binding:cardCornerRadius="@dimen/spacing_6"
+            binding:cardElevation="@dimen/spacing_5"
+            binding:cardUseCompatPadding="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_10"
+                    android:layout_marginTop="@dimen/spacing_15"
+                    android:text="@{viewModel.mData.question.title}"
+                    android:textColor="@color/black_333333"
+                    android:textSize="@dimen/font_16" />
+
+                <TextView
+                    android:layout_width="178dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/title"
+                    android:layout_alignStart="@+id/title"
+                    android:layout_marginTop="@dimen/spacing_14"
+                    android:layout_marginBottom="@dimen/spacing_15"
+                    android:text="@{viewModel.mData.question.description}"
+                    android:textColor="@color/grey_999999"
+                    android:textSize="@dimen/font_12"
+                    android:visibility="@{viewModel.description}" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/spacing_15"
+                    android:src="@drawable/icon_camera"
+                    android:visibility="@{viewModel.isNeedAttachImage}"
+                    binding:onClickCommand="@{viewModel.getPicture}" />
+
+                <RelativeLayout
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/spacing_10"
+                    android:layout_marginEnd="@dimen/spacing_15"
+                    android:layout_marginBottom="@dimen/spacing_10"
+                    android:background="@color/white_ffffff"
+                    android:visibility="@{viewModel.imagePreview}"
+                    binding:onClickCommand="@{viewModel.viewPicUC}">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        binding:loadWithRound="@{viewModel.imagePaths[0]}"
+                        binding:placeholderRes="@drawable/img_placeholder"
+                        binding:round="@{viewModel.roundSize}" />
+
+                    <FrameLayout
+                        android:layout_width="@dimen/spacing_12"
+                        android:layout_height="@dimen/spacing_12"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="-6dp"
+                        android:layout_marginEnd="-6dp"
+                        android:background="@drawable/bg_count">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="@{StringUtils.formatString(viewModel.imagePaths.size())}"
+                            android:textColor="@color/white_ffffff"
+                            android:textSize="@dimen/font_8"
+                            tools:text="5" />
+                    </FrameLayout>
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:binding="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.neufmer.ygfstore.ui.view_picture.ViewPictureViewModel" />
+
+        <variable
+            name="viewModel"
+            type="ViewPictureViewModel" />
+
+
+        <import type="com.neufmer.ygfstore.binding.recyclerview.AppLayoutManagers" />
+
+        <import type="com.neufmer.ygfstore.binding.recyclerview.AppLineManagers" />
+
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context=".ui.view_picture.ViewPictureActivity">
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/frame_toolbar"
+            binding:toolbarViewModel="@{viewModel.toolbarViewModel}" />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            binding:itemBinding="@{viewModel.binding}"
+            binding:items="@{viewModel.items}"
+            binding:layoutManager="@{AppLayoutManagers.gridLayout(3)}"
+            binding:lineManager="@{AppLineManagers.gridDivider(15,15)}">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+
+</layout>

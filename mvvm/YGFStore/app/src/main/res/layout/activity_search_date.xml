@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="com.neufmer.ygfstore.ui.search_history.date.SearchHistoryDateViewModel" />
+
+        <variable
+            name="viewModel"
+            type="com.neufmer.ygfstore.ui.search_history.date.SearchHistoryDateViewModel" />
+
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:binding="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white_ffffff"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context=".ui.search_history.date.SearchHistoryDateActivity">
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/frame_toolbar"
+            binding:toolbarViewModel="@{viewModel.toolbarViewModel}" />
+
+        <RelativeLayout
+            android:layout_width="96dp"
+            android:layout_height="@dimen/spacing_24"
+            android:layout_marginStart="@dimen/spacing_20"
+            android:layout_marginTop="@dimen/spacing_15"
+            android:background="@drawable/bg_select_date_type"
+            binding:onClickCommand="@{viewModel.switchSearchType}">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawableEnd="@drawable/icon_search_sort"
+                android:drawablePadding="@dimen/spacing_3"
+                android:text="@{viewModel.mSearchType == 0 ? @string/search_date_activity_type_month : @string/search_date_activity_type_day}"
+                android:textColor="@color/grey_666666"
+                android:textSize="@dimen/font_12"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_35"
+            android:orientation="vertical"
+            android:visibility="@{viewModel.mSearchTypeDay}">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_20"
+                android:layout_marginEnd="@dimen/spacing_20"
+                android:background="@drawable/bg_main_color_edit_line"
+                android:gravity="center"
+                android:paddingBottom="@dimen/spacing_7"
+                android:text="@{viewModel.monthDay}"
+                android:textColor="@color/main_blue_5584FF"
+                android:textSize="@dimen/font_14"
+                tools:text="2019-03" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_35"
+            android:orientation="vertical"
+            android:visibility="@{viewModel.mSearchTypeMonth}">
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_20"
+                android:layout_marginEnd="@dimen/spacing_20"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                binding:onRadioGroupChangedCommand="@{viewModel.onCheckedCommand}">
+
+                <RadioButton
+                    android:id="@+id/rb1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_select_date_radio_button_line"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:checked="true"
+                    android:paddingBottom="@dimen/spacing_6"
+                    android:text="@{viewModel.startDay}"
+                    android:textColor="@color/radio_button_text_color"
+                    tools:text="2019-03-04" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_20"
+                    android:layout_marginEnd="@dimen/spacing_20"
+                    android:paddingBottom="@dimen/spacing_6"
+                    android:text="@string/search_date_activity"
+                    android:textColor="@color/grey_666666"
+                    android:textSize="@dimen/font_14" />
+
+
+                <RadioButton
+                    android:id="@+id/rb2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_select_date_radio_button_line"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/spacing_6"
+                    android:text="@{viewModel.endDay}"
+                    android:textColor="@color/radio_button_text_color"
+                    tools:text="2019-03-04" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_50"
+            android:background="@color/white_ffffff">
+
+        </FrameLayout>
+
+    </LinearLayout>
+</layout>

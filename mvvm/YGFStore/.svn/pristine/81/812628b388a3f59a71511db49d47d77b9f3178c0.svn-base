@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+
+        <import type="com.neufmer.ygfstore.ui.addtask.AddTaskViewModel" />
+
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
+
+        <variable
+            name="viewModel"
+            type="AddTaskViewModel" />
+    </data>
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:binding="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_7F7F7F">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="203dp"
+            android:background="@color/color_FFF1F1F1"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_FFF1F1F1"
+                android:paddingTop="@dimen/spacing_8"
+                android:paddingBottom="@dimen/spacing_8">
+
+                <TextView
+                    android:id="@+id/cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/spacing_26"
+                    android:layout_marginEnd="@dimen/spacing_15"
+                    android:text="@string/common_cancel"
+                    android:textColor="@color/main_blue_5584FF"
+                    android:textSize="@dimen/font_16"
+                    binding:onClickCommand="@{viewModel.dismissSurfaceDialogClick}" />
+
+                <TextView
+                    android:id="@+id/done"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/spacing_26"
+                    android:text="@string/common_complete"
+                    android:textColor="@color/main_blue_5584FF"
+                    android:textSize="@dimen/font_16"
+                    binding:onClickCommand="@{viewModel.completeSurfaceDialog}" />
+
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/mine_bg"
+                android:paddingBottom="@dimen/spacing_20"
+                binding:itemBinding="@{viewModel.surfaceItemBinding}"
+                binding:items="@{viewModel.surfaceItems}"
+                binding:layoutManager="@{LayoutManagers.linear()}" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

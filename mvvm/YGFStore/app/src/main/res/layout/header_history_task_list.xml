@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="com.neufmer.ygfstore.ui.main.fragment.history.fragment.MyMissionItemHeaderViewModel" />
+
+        <variable
+            name="viewModel"
+            type="MyMissionItemHeaderViewModel" />
+
+
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:binding="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:id="@+id/ll_history_task"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:background="@color/white_ffffff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/rl_history_task_list"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/spacing_15"
+                android:layout_marginTop="@dimen/spacing_15"
+                android:layout_marginRight="@dimen/spacing_8"
+                android:layout_marginBottom="@dimen/spacing_15"
+                android:layout_weight="1">
+
+
+                <RadioButton
+                    android:id="@+id/rb_history_task_done_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/header_history_task"
+                    android:button="@null"
+                    android:checked="@={viewModel.leftRadioCheck}"
+                    android:enabled="false" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_task_title_info"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/spacing_6"
+                    android:padding="@dimen/spacing_10"
+                    android:text="@string/history_list_done_text"
+                    android:textColor="@color/white_ffffff"
+                    android:textSize="@dimen/font_16"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_done_times"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_task_title_info"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/spacing_6"
+                    android:padding="@dimen/spacing_10"
+                    android:text="@={viewModel.mCompleteCounts}"
+                    android:textColor="@color/white_ffffff"
+                    android:textSize="@dimen/font_34"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    binding:onClickCommand="@{viewModel.leftTabClick}" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rb_waiting_sync_history_task_list"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/spacing_8"
+                android:layout_marginTop="@dimen/spacing_15"
+                android:layout_marginRight="@dimen/spacing_15"
+                android:layout_marginBottom="@dimen/spacing_15"
+                android:layout_weight="1">
+
+                <RadioButton
+                    android:id="@+id/rb_history_task_waiting_sync_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/header_history_task"
+                    android:button="@null"
+                    android:checked="@={viewModel.rightRadioCheck}"
+                    android:enabled="false" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_task_title_info"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/spacing_6"
+                    android:padding="@dimen/spacing_10"
+                    android:text="@string/history_list_waiting_sync_text"
+                    android:textColor="@color/white_ffffff"
+                    android:textSize="@dimen/font_16"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_waiting_times"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_task_title_info"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/spacing_6"
+                    android:padding="@dimen/spacing_10"
+                    android:text="@={viewModel.mSubmitCounts}"
+                    android:textColor="@color/white_ffffff"
+                    android:textSize="@dimen/font_34"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    binding:onClickCommand="@{viewModel.rightTabClick}" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

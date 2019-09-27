@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="com.neufmer.ygfstore.ui.search_history.keyword.SearchHistoryKeywordItemViewModel" />
+
+        <variable
+            name="viewModel"
+            type="SearchHistoryKeywordItemViewModel" />
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:binding="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/spacing_15"
+        android:layout_marginBottom="@dimen/spacing_10"
+        binding:onClickCommand="@{viewModel.onClick}">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/dialog_member_label_selector"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/spacing_13"
+            android:paddingTop="@dimen/spacing_2"
+            android:paddingRight="@dimen/spacing_13"
+            android:paddingBottom="@dimen/spacing_2"
+            android:text="@{viewModel.mData}"
+            android:textColor="@drawable/dialog_member_text_selector"
+            android:textSize="@dimen/spacing_13">
+
+        </TextView>
+    </FrameLayout>
+</layout>

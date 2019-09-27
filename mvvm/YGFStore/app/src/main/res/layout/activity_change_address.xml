@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="com.neufmer.ygfstore.ui.addtask.changeaddress.ChangeAddressViewModel" />
+
+        <variable
+            name="viewModel"
+            type="ChangeAddressViewModel" />
+
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:binding="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white_ffffff"
+        android:fitsSystemWindows="true">
+
+        <include
+            android:id="@+id/change_address_include"
+            layout="@layout/frame_toolbar"
+            binding:toolbarViewModel="@{viewModel.toolbarViewModel}" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_main_ed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="88dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_50"
+                android:layout_marginStart="@dimen/spacing_20"
+                android:layout_marginEnd="@dimen/spacing_20"
+                android:background="@drawable/bg_edit_text_bottom_stroke">
+
+
+                <TextView
+                    android:id="@+id/tv_check_store"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="@string/store_owner"
+                    android:textColor="@color/black_333333"
+                    android:textSize="@dimen/font_16" />
+
+                <TextView
+                    android:id="@+id/et_check_store"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/spacing_10"
+                    android:layout_toRightOf="@id/tv_check_store"
+                    android:layout_weight="3"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="@string/hint_choose_check_store"
+                    android:paddingTop="@dimen/spacing_10"
+                    android:paddingBottom="@dimen/spacing_10"
+                    android:singleLine="true"
+                    android:textColor="@color/black_333333"
+                    android:textColorHint="@color/grey_999999"
+                    android:textSize="@dimen/font_14" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_50"
+                android:layout_marginStart="@dimen/spacing_20"
+                android:layout_marginEnd="@dimen/spacing_20"
+                android:background="@drawable/bg_edit_text_bottom_stroke">
+
+
+                <TextView
+                    android:id="@+id/tv_check_member"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                   android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="@string/store_code"
+                    android:textColor="@color/black_333333"
+                    android:textSize="@dimen/font_16" />
+
+                <EditText
+                    android:id="@+id/et_check_member"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                   android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/spacing_10"
+                    android:layout_toRightOf="@id/tv_check_member"
+                    android:layout_weight="3"
+                    android:background="@null"
+                    android:ellipsize="end"
+                    android:enabled="false"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:paddingTop="@dimen/spacing_10"
+                    android:paddingBottom="@dimen/spacing_10"
+                    android:singleLine="true"
+                    android:textColor="@color/black_333333"
+                    android:textColorHint="@color/grey_999999"
+                    android:textSize="@dimen/font_14" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_50"
+                android:layout_marginStart="@dimen/spacing_20"
+                android:layout_marginEnd="@dimen/spacing_20"
+                android:background="@drawable/bg_edit_text_bottom_stroke">
+
+
+                <TextView
+                    android:id="@+id/tv_check_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                   android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="@string/choose_address"
+                    android:textColor="@color/black_333333"
+                    android:textSize="@dimen/font_16" />
+
+                <TextView
+                    android:id="@+id/et_check_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                   android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/spacing_10"
+                    android:layout_toRightOf="@id/tv_check_time"
+                    android:layout_weight="3"
+                    android:background="@null"
+                    android:drawablePadding="@dimen/spacing_16"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:hint="@string/hint_choose_address"
+                    android:paddingTop="@dimen/spacing_10"
+                    android:paddingBottom="@dimen/spacing_10"
+                    android:singleLine="true"
+                    android:text="@{viewModel.pvText}"
+                    android:textColor="@color/black_333333"
+                    android:textColorHint="@color/grey_999999"
+                    android:textSize="@dimen/font_14"
+                    binding:onClickCommand="@{viewModel.showChooseAddressDialogClick}" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_50"
+                android:layout_marginStart="@dimen/spacing_20"
+                android:layout_marginEnd="@dimen/spacing_20"
+                android:background="@drawable/bg_edit_text_bottom_stroke">
+
+
+                <TextView
+                    android:id="@+id/tv_total_check_times"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                   android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="@string/address_detail"
+                    android:textColor="@color/black_333333"
+                    android:textSize="@dimen/font_16" />
+
+                <EditText
+                    android:id="@+id/et_total_check_times"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/spacing_10"
+                    android:layout_toRightOf="@id/tv_total_check_times"
+                    android:layout_weight="3"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="@string/hint_address_detail"
+                    android:paddingTop="@dimen/spacing_10"
+                    android:paddingBottom="@dimen/spacing_10"
+                    android:singleLine="true"
+                    android:textColor="@color/black_333333"
+                    android:textColorHint="@color/grey_999999"
+                    android:textSize="@dimen/font_14" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>

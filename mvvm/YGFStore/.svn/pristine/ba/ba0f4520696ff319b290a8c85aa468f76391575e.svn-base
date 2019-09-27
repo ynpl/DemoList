@@ -1,0 +1,96 @@
+package com.neufmer.ygfstore.api.source;
+
+import com.neufmer.ygfstore.api.TaskApi;
+import com.neufmer.ygfstore.bean.GroupsUsersBean;
+import com.neufmer.ygfstore.bean.InspectionsheetResultBean;
+import com.neufmer.ygfstore.bean.InspectionsheetsBean;
+import com.neufmer.ygfstore.bean.StoresBean;
+import com.neufmer.ygfstore.bean.TaskBean;
+import com.neufmer.ygfstore.bean.TasksBean;
+import com.wangxing.code.mvvm.http.RetrofitClient;
+import com.wangxing.code.mvvm.http.base.BaseResponse;
+
+import java.util.List;
+import java.util.Map;
+
+import io.reactivex.Observable;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+
+/**
+ * Created by WangXing on 2019/6/26.
+ */
+public class TaskModel {
+
+    public Observable<BaseResponse<TasksBean>> getTasks(Map<String, String> header
+            , String status
+            , String type
+            , String startDate
+            , String endDate
+            , String keyword
+            , String pn
+            , String pz) {
+        return RetrofitClient.getInstance().createApi(TaskApi.class).tasks(header, status, type, startDate, endDate, keyword, pn, pz);
+    }
+
+    //lt
+    public Observable<BaseResponse<TasksBean>> querySingleStoretasks(Map<String, String> header
+            , String status
+            , String type
+            , int clientId
+            , String startDate
+            , String endDate
+            , String keyword
+            , String pn
+            , String pz) {
+        return RetrofitClient.getInstance().createApi(TaskApi.class).querySingleStoretasks(header, status, type, clientId, startDate, endDate, keyword, pn, pz);
+    }
+
+    public Observable<BaseResponse<List<StoresBean>>> getStores(Map<String, String> header
+            , String longitude
+            , String latitude
+            , String inspectorIds
+            , String keyword) {
+        return RetrofitClient.getInstance().createApi(TaskApi.class).stores(header, longitude, latitude, inspectorIds, keyword);
+    }
+
+    public Observable<BaseResponse<List<GroupsUsersBean>>> getGroupsUsers(Map<String, String> header) {
+        return RetrofitClient.getInstance().createApi(TaskApi.class).groups_users(header);
+    }
+
+    public Observable<BaseResponse<List<InspectionsheetsBean>>> getInspectionsheets(Map<String, String> header) {
+        return RetrofitClient.getInstance().createApi(TaskApi.class).inspectionsheets(header);
+    }
+
+    public Observable<BaseResponse<InspectionsheetResultBean>> getInspectionsheetsQuery(Map<String, String> header
+            , String id) {
+        return RetrofitClient.getInstance().createApi(TaskApi.class).inspectionsheetsQuery(header, id);
+    }
+
+    public Observable<BaseResponse<Void>> postBatchcreate(Map<String, String> header
+            , RequestBody body) {
+        return RetrofitClient.getInstance().createApi(TaskApi.class).batchcreate(header, body);
+    }
+
+    public Observable<BaseResponse<TaskBean>> getTaskSingle(Map<String, String> header
+            , int id) {
+        return RetrofitClient.getInstance().createApi(TaskApi.class).taskSingle(header, id);
+    }
+
+    public Observable<BaseResponse<String>> postUpload(Map<String, String> header
+            , MultipartBody.Part part) {
+        return RetrofitClient.getInstance().createApi(TaskApi.class).upload(header, part);
+    }
+
+    public Observable<BaseResponse<Void>> getComplete(Map<String, String> header
+            , String taskId) {
+        return RetrofitClient.getInstance().createApi(TaskApi.class).complete(header, taskId);
+    }
+
+    public Observable<BaseResponse<Void>> submit(Map<String, String> header
+            , String taskId,RequestBody body){
+        return RetrofitClient.getInstance().createApi(TaskApi.class).submit(header, taskId,body);
+    }
+
+
+}

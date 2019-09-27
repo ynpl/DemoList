@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="com.neufmer.ygfstore.ui.addtask.AddTaskStoreItemViewModel" />
+
+        <import type="com.wangxing.code.mvvm.utils.StringUtils" />
+
+        <variable
+            name="viewModel"
+            type="com.neufmer.ygfstore.ui.addtask.AddTaskStoreItemViewModel" />
+
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:binding="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/mine_bg"
+        android:paddingLeft="@dimen/spacing_16"
+        android:paddingTop="@dimen/spacing_5"
+        android:paddingRight="@dimen/spacing_16"
+        android:paddingBottom="@dimen/spacing_5">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_ygf_item_main_task_list"
+            android:padding="@dimen/spacing_15"
+            binding:onClickCommand="@{viewModel.onItemClick}">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_30"
+                    android:layout_marginEnd="@dimen/spacing_10">
+
+
+                    <TextView
+                        android:id="@+id/tv_store_owner"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="right"
+                        android:text="@string/store_owner"
+                        android:textColor="@color/grey_666666"
+                        android:textSize="@dimen/font_14" />
+
+                    <TextView
+                        android:id="@+id/tv_store_owner_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/spacing_15"
+                        android:layout_marginEnd="@dimen/spacing_16"
+                        android:layout_toStartOf="@id/tv_store_distance"
+                        android:layout_toEndOf="@id/tv_store_owner"
+                        android:background="@null"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="@{viewModel.mData.legalRepresentative}"
+                        android:textColor="@color/grey_666666"
+                        android:textSize="@dimen/font_14" />
+
+                    <TextView
+                        android:id="@+id/tv_store_distance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:background="@null"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="@{viewModel.distance}"
+                        android:textColor="@color/grey_999999"
+                        android:textSize="@dimen/font_10" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_30"
+                    android:layout_marginEnd="@dimen/spacing_10">
+
+
+                    <TextView
+                        android:id="@+id/tv_store_code"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="right"
+                        android:text="@string/store_code"
+                        android:textColor="@color/grey_666666"
+                        android:textSize="@dimen/font_14" />
+
+                    <TextView
+                        android:id="@+id/tv_store_code_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/spacing_15"
+                        android:layout_toEndOf="@id/tv_store_code"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="@{viewModel.mData.code}"
+                        android:textColor="@color/grey_666666"
+                        android:textSize="@dimen/font_14" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_30"
+                    android:layout_marginEnd="@dimen/spacing_10">
+
+
+                    <TextView
+                        android:id="@+id/tv_store_address"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="right"
+                        android:text="@string/store_address"
+                        android:textColor="@color/grey_666666"
+                        android:textSize="@dimen/font_14" />
+
+                    <TextView
+                        android:id="@+id/tv_store_address_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/spacing_15"
+                        android:layout_marginEnd="@dimen/spacing_16"
+                        android:layout_toStartOf="@id/cb_choose_owner"
+                        android:layout_toEndOf="@id/tv_store_address"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:text="@{viewModel.mData.address.country + viewModel.mData.address.admin1 + viewModel.mData.address.admin2 + StringUtils.null2Length0(viewModel.mData.address.admin3) + StringUtils.null2Length0(viewModel.mData.address.admin4) + viewModel.mData.address.street}"
+                        android:textColor="@color/grey_666666"
+                        android:textSize="@dimen/font_14" />
+
+                    <CheckBox
+                        android:id="@+id/cb_choose_owner"
+                        style="@style/CustomCheckBoxTheme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:checked="@{viewModel.selectFlag}"
+                        android:enabled="false" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>

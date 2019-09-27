@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="com.neufmer.ygfstore.ui.main.fragment.task.TaskFragmentViewModel" />
+
+        <variable
+            name="viewModel"
+            type="TaskFragmentViewModel" />
+
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
+
+    </data>
+
+
+    <com.wangxing.code.mvvm.view.MultiStatusLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:binding="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/common_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/mine_bg"
+        android:fitsSystemWindows="true"
+        binding:emptyView="@layout/empty_status_view"
+        binding:loadingView="@layout/loading_status_view"
+        binding:noNetworkView="@layout/no_network_status_view">
+
+        <LinearLayout
+            android:id="@+id/content_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="168dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/bg_avtivity_main_task_list" />
+
+
+                    <TextView
+                        android:id="@+id/tv_task_list_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@id/rl_task_time_add_new"
+                        android:layout_marginStart="@dimen/spacing_10"
+                        android:layout_marginTop="@dimen/spacing_8"
+                        android:text="@string/main_activity_bottom_task"
+                        android:textColor="@color/white_ffffff"
+                        android:textSize="@dimen/font_34"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_task_time_add_new"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/spacing_10"
+                        android:layout_marginRight="@dimen/spacing_10"
+                        android:paddingBottom="@dimen/spacing_10">
+
+                        <TextView
+                            android:id="@+id/tv_task_list_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="@dimen/spacing_8"
+                            android:text="@{viewModel.currentDateText}"
+                            android:textColor="@color/white_ffffff"
+                            android:textSize="@dimen/font_20" />
+
+                        <Button
+                            android:id="@+id/add_new_task"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/bg_ygf_add_task_button"
+                            android:drawableStart="@drawable/add_task_plus"
+                            android:drawablePadding="@dimen/spacing_6"
+                            android:gravity="center_vertical"
+                            android:padding="@dimen/spacing_6"
+                            android:text="@string/btn_add_new_task"
+                            android:textColor="@color/white_ffffff"
+                            android:textSize="@dimen/font_14"
+                            android:visibility="gone" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_15"
+                android:layout_marginTop="@dimen/spacing_10"
+                android:layout_marginEnd="@dimen/spacing_15"
+                android:layout_marginBottom="@dimen/spacing_10"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_10"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_tash_fragment_search"
+                    android:paddingTop="@dimen/spacing_7"
+                    android:paddingBottom="@dimen/spacing_7"
+                    binding:onClickCommand="@{viewModel.searchTaskClick}">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing_10"
+                        android:drawableStart="@drawable/icon_search"
+                        android:drawablePadding="@dimen/spacing_5"
+                        android:text="@string/task_fragment_search_hint"
+                        android:textColor="@color/grey_999999"
+                        android:textSize="@dimen/font_12" />
+                </FrameLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_add_task"
+                    binding:onClickCommand="@{viewModel.addTaskClick}" />
+
+            </LinearLayout>
+
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/swipe_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                binding:onLoadMoreListener="@{viewModel.onLoadMoreListener}"
+                binding:onRefreshListener="@{viewModel.onRefreshListener}"
+                binding:srlEnableFooterFollowWhenNoMoreData="true"
+                binding:srlEnableOverScrollDrag="true">
+
+                <com.scwang.smartrefresh.layout.header.ClassicsHeader
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    binding:srlClassicsSpinnerStyle="FixedBehind"
+                    binding:srlDrawableArrowSize="20dp"
+                    binding:srlDrawableMarginRight="20dp"
+                    binding:srlDrawableProgressSize="20dp"
+                    binding:srlEnableLastTime="true"
+                    binding:srlFinishDuration="500"
+                    binding:srlTextSizeTime="10dp"
+                    binding:srlTextSizeTitle="16sp"
+                    binding:srlTextTimeMarginTop="2dp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/common_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    binding:itemBinding="@{viewModel.itemBinding}"
+                    binding:items="@{viewModel.itemList}"
+                    binding:layoutManager="@{LayoutManagers.linear()}">
+
+                </android.support.v7.widget.RecyclerView>
+
+                <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+        </LinearLayout>
+
+    </com.wangxing.code.mvvm.view.MultiStatusLayout>
+</layout>
